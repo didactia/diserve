@@ -9,21 +9,23 @@ import (
   "diserve.didactia.org/lib/util"
 )
 
+// Args is a method for parsing and routing the arguments
 func Args(args []string) {
   arg, args := util.Shift(os.Args[1:])
   switch arg {
   case "db":
-    _db(args)
+    dbrouter(args)
   case "help":
-    _help(args)
+    helprouter(args)
   case "run":
-    _run(args)
+    runrouter(args)
   default:
     fmt.Println("No argument given, run \"diserve help\" for a list of commands")
   }
 }
 
-func _db(args []string) {
+// dbrouter will, given a slice of arguments, route to the appropriate db functionality
+func dbrouter(args []string) {
   arg, args := util.Shift(args)
   switch arg {
   case "init":
@@ -33,10 +35,12 @@ func _db(args []string) {
   }
 }
 
-func _help(args []string) {
+// helprouter is a wrapper for the help parser
+func helprouter(args []string) {
   help.Parse(args)
 }
 
-func _run(args []string) {
+// runrouter will, given a slice of arguments, route to the appropriate run functionality
+func runrouter(args []string) {
   log.Fatal("Not implemented")
 }
