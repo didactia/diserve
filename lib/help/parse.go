@@ -5,7 +5,7 @@ import (
   "diserve.didactia.org/lib/util"
 )
 
-// Parse parses the arguments given and prints the appropriate help file
+// Parse parses the arguments given and prints the appropriate help strings
 func Parse(args []string) {
   arg, args := util.Shift(args)
   commands, ok := Strings[arg]
