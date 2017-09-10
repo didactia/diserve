@@ -19,8 +19,10 @@ func Args(args []string) {
     helprouter(args)
   case "run":
     runrouter(args)
-  default:
+  case "":
     fmt.Println("No argument given, use \"diserve help\" for a list of commands")
+  default:
+    fmt.Printf("No such command: %s, use \"diserve help\" for a list of commands\n", arg)
   }
 }
 
