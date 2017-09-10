@@ -2,7 +2,7 @@ package main
 
 import (
   "os"
-  routing "diserve.didactia.org/lib/routing"
+  "diserve.didactia.org/lib/routing"
 )
 
 func main() {
