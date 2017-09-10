@@ -20,7 +20,7 @@ func Args(args []string) {
   case "run":
     runrouter(args)
   default:
-    fmt.Println("No argument given, run \"diserve help\" for a list of commands")
+    fmt.Println("No argument given, use \"diserve help\" for a list of commands")
   }
 }
 
@@ -31,7 +31,7 @@ func dbrouter(args []string) {
   case "init":
     db.Init(args)
   default:
-    fmt.Println("No argument given for command \"diserve db\", run \"diserve help db\" for a list of commands")
+    fmt.Println("No argument given for command \"diserve db\", use \"diserve help db\" for a list of commands")
   }
 }
 
