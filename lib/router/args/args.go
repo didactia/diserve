@@ -1,12 +1,12 @@
-package routers
+package args
 
 import (
   "fmt"
-  "log"
   "os"
   "diserve.didactia.org/lib/db"
   "diserve.didactia.org/lib/help"
   "diserve.didactia.org/lib/util"
+  "diserve.didactia.org/lib/server"
 )
 
 // Args is a method for parsing and routing the arguments
@@ -44,5 +44,5 @@ func helprouter(args []string) {
 
 // runrouter will, given a slice of arguments, route to the appropriate run functionality
 func runrouter(args []string) {
-  log.Fatal("Not implemented")
+  server.Run(args)
 }

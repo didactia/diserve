@@ -2,9 +2,9 @@ package main
 
 import (
   "os"
-  "diserve.didactia.org/lib/routers"
+  "diserve.didactia.org/lib/router/args"
 )
 
 func main() {
-  routers.Args(os.Args[1:])
+  args.Args(os.Args[1:])
 }
