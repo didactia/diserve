@@ -2,16 +2,17 @@ package args
 
 import (
   "fmt"
-  "os"
   "diserve.didactia.org/lib/db"
   "diserve.didactia.org/lib/help"
   "diserve.didactia.org/lib/util"
   "diserve.didactia.org/lib/server"
+  "diserve.didactia.org/lib/env"
 )
 
 // Args is a method for parsing and routing the arguments
 func Args(args []string) {
-  arg, args := util.Shift(os.Args[1:])
+  args = env.Init(args)
+  arg, args := util.Shift(args)
   switch arg {
   case "db":
     dbrouter(args)
