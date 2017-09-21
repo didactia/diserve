@@ -1,0 +1,17 @@
+div.top-bar {
+  width: 100%;
+  background-color: #f2f2f2;
+}
+
+div.top-bar-inner {
+  width: 80%;
+  margin: 1em auto; 
+}
+
+div.pull-left {
+  float: left !important;
+}
+
+div.pull-right {
+  float: right !important;
+}

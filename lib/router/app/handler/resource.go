@@ -13,3 +13,8 @@ func (h *Resource) Handler(tag language.Tag) http.Handler {
     http.Error(res, "Not Implemented", http.StatusNotImplemented)
   })
 }
+
+func NewResource() *Resource {
+  h := &Resource{}
+  return h
+}

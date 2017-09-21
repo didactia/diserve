@@ -11,3 +11,8 @@ func (h *API) ServeHTTP(res http.ResponseWriter, req *http.Request) {
   http.Error(res, "Not Implemented", http.StatusNotImplemented)
   return
 }
+
+func NewAPI() *API {
+  h := &API{}
+  return h
+}

@@ -5,13 +5,9 @@ import (
   "fmt"
   "diserve.didactia.org/lib/env"
   "diserve.didactia.org/lib/router/app"
-  "diserve.didactia.org/lib/router/app/handler"
 )
 
 func Run(args []string) {
-  app := &app.App{
-    Language: new(handler.Language),
-    API: new(handler.API),
-  }
+  app := app.NewApp()
   http.ListenAndServe(fmt.Sprintf(":%s", env.Vars.PORT), app)
 }

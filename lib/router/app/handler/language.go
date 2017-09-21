@@ -20,3 +20,10 @@ func (h *Language) ServeHTTP(res http.ResponseWriter, req *http.Request) {
     h.Resource.Handler(tag).ServeHTTP(res, req)
   }
 }
+
+func NewLanguage() *Language {
+  h := &Language{
+    Resource: NewResource(),
+  }
+  return h
+}

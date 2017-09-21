@@ -7,6 +7,7 @@ type variables struct {
   PORT string
   DBIP string
   DBPORT string
+  STYLEDIR string
 }
 
 var Vars variables
