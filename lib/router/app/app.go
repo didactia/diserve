@@ -4,6 +4,7 @@ import (
   "net/http"
   "diserve.didactia.org/lib/router/app/handler"
   "diserve.didactia.org/lib/util"
+  "diserve.didactia.org/lib/frontend/templater"
 )
 
 type App struct {
@@ -11,6 +12,7 @@ type App struct {
   API *handler.API
   Style *handler.Style
   Frontpage *handler.Frontpage
+  Templater *templater.Templater
 }
 
 func (h *App) ServeHTTP(res http.ResponseWriter, req *http.Request) {
@@ -36,6 +38,7 @@ func NewApp() *App {
     API: handler.NewAPI(),
     Style: handler.NewStyle(),
     Frontpage: handler.NewFrontpage(),
+    Templater: templater.NewTemplater(),
   }
   return h
 }
