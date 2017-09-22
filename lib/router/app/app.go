@@ -10,6 +10,7 @@ type App struct {
   Language *handler.Language
   API *handler.API
   Style *handler.Style
+  Frontpage *handler.Frontpage
 }
 
 func (h *App) ServeHTTP(res http.ResponseWriter, req *http.Request) {
@@ -21,6 +22,9 @@ func (h *App) ServeHTTP(res http.ResponseWriter, req *http.Request) {
   case "style":
     req.URL.Path = tail
     h.Style.ServeHTTP(res, req)
+  case "":
+    req.URL.Path = tail //nil
+    h.Frontpage.ServeHTTP(res, req)
   default:
     h.Language.ServeHTTP(res, req)
   }
@@ -31,6 +35,7 @@ func NewApp() *App {
     Language: handler.NewLanguage(),
     API: handler.NewAPI(),
     Style: handler.NewStyle(),
+    Frontpage: handler.NewFrontpage(),
   }
   return h
 }
