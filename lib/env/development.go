@@ -4,5 +4,6 @@ func development() {
   Vars.PORT = "8000"
   Vars.DBIP = "localhost"
   Vars.DBPORT = "9080"
-  Vars.STYLEDIR = "lib/frontend/style/"
+  Vars.STYLEPATH = "lib/frontend/style/*.css"
+  Vars.TMPLPATH = "lib/frontend/template/tmpl/*.tmpl"
 }
