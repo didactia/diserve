@@ -2,16 +2,21 @@ package handler
 
 import (
   "net/http"
+
+  "diserve.didactia.org/lib/frontend/templater"
 )
 
 type Frontpage struct {
+  templater *templater.Templater
 }
 
 func (h *Frontpage) ServeHTTP(res http.ResponseWriter, req *http.Request) {
-  http.Error(res, "Not Found", http.StatusNotFound)
+  h.templater.Render(res, "frontpage", nil)
 }
 
-func NewFrontpage() *Frontpage {
-  h := &Frontpage{}
+func NewFrontpage(t *templater.Templater) *Frontpage {
+  h := &Frontpage{
+    templater: t,
+  }
   return h
 }

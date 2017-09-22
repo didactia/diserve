@@ -12,7 +12,6 @@ type App struct {
   API *handler.API
   Style *handler.Style
   Frontpage *handler.Frontpage
-  Templater *templater.Templater
 }
 
 func (h *App) ServeHTTP(res http.ResponseWriter, req *http.Request) {
@@ -33,12 +32,12 @@ func (h *App) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 }
 
 func NewApp() *App {
+  t := templater.NewTemplater()
   h := &App {
     Language: handler.NewLanguage(),
     API: handler.NewAPI(),
     Style: handler.NewStyle(),
-    Frontpage: handler.NewFrontpage(),
-    Templater: templater.NewTemplater(),
+    Frontpage: handler.NewFrontpage(t),
   }
   return h
 }
