@@ -11,24 +11,39 @@ import (
 )
 
 type Style struct {
-  files map[string][]byte
+  styles map[string][]byte
 }
 
 func (h *Style) ServeHTTP(res http.ResponseWriter, req *http.Request) {
   head, _ := util.ShiftPath(req.URL.Path)
-  if data := h.files[head]; data == nil {
-    http.Error(res, "Not Found", http.StatusNotFound)
+  var data []byte
+  var ok bool
+  if env.Vars.PRELOADSTYLES {
+    data, ok = h.styles[head]
   } else {
+    data, ok = getStyle(head)
+  }
+  if ok {
     res.Header().Set("Content-Type", "text/css; charset=utf-8")
     res.Write(data)
+  } else {
+    http.Error(res, "Not Found", http.StatusNotFound)
   }
 }
 
 func NewStyle() *Style {
   h := &Style{
-    files: make(map[string][]byte),
+    styles: nil,
   }
-  paths, err := filepath.Glob(env.Vars.STYLEPATH)
+  if env.Vars.PRELOADSTYLES {
+    h.styles = getStyles()
+  }
+  return h
+}
+
+func getStyles() map[string][]byte {
+  styles := make(map[string][]byte)
+  paths, err := filepath.Glob(env.Vars.STYLEPATH + "*.css")
   if err != nil {
     log.Fatal(err)
   }
@@ -38,7 +53,15 @@ func NewStyle() *Style {
     if err != nil {
       log.Fatal(err)
     }
-    h.files[filename] = bytes
+    styles[filename] = bytes
   }
-  return h
+  return styles
+}
+
+func getStyle(filename string) ([]byte, bool) {
+  bytes, err := ioutil.ReadFile(filepath.Join(env.Vars.STYLEPATH, filename))
+  if err != nil {
+    return nil, false
+  }
+  return bytes, true
 }

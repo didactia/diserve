@@ -9,6 +9,8 @@ type variables struct {
   DBPORT string
   STYLEPATH string
   TMPLPATH string
+  PRELOADSTYLES bool
+  LOADTMPLONREQUEST bool
 }
 
 var Vars variables
