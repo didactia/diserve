@@ -6,6 +6,6 @@ func development() {
   Vars.DBPORT = "9080"
   Vars.STYLEPATH = "lib/frontend/style/"
   Vars.TMPLPATH = "lib/frontend/tmpl/*.tmpl"
-  Vars.PRELOADSTYLES = true
+  Vars.PRELOADSTYLES = false
   Vars.LOADTMPLONREQUEST = true
 }
