@@ -10,6 +10,7 @@ import (
   "diserve.didactia.org/lib/env"
 )
 
+// Style struct holds a map, with string keys corresponding to loaded styles as byte slices,
 type Style struct {
   styles map[string][]byte
 }
@@ -31,6 +32,7 @@ func (h *Style) ServeHTTP(res http.ResponseWriter, req *http.Request) {
   }
 }
 
+// NewStyle initializes the Style handler by loading the css files of STYLEPATH into its styles map.
 func NewStyle() *Style {
   h := &Style{
     styles: nil,

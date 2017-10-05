@@ -27,7 +27,7 @@ func Parse(args []string) {
   } else {
     if arg == "" {
       fmt.Println("These are the available commands for diserve:\n")
-      for command, _ := range Strings {
+      for command := range Strings {
         fmt.Printf("  %s\n", command);
       }
       fmt.Println("\nuse \"diserve help <command>\" for a list of arguments for the command")

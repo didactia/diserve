@@ -7,6 +7,7 @@ import (
   "diserve.didactia.org/lib/frontend/templater"
 )
 
+// App is the first level struct of the router, this contains the handlers for all root http requests.
 type App struct {
   Language *handler.Language
   API *handler.API
@@ -31,6 +32,7 @@ func (h *App) ServeHTTP(res http.ResponseWriter, req *http.Request) {
   }
 }
 
+// NewApp returns a new App with its handlers initialized.
 func NewApp() *App {
   t := templater.NewTemplater()
   h := &App {

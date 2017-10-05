@@ -6,6 +6,7 @@ import (
   "golang.org/x/text/language"
 )
 
+// Language struct holds a pointer to the resource handler
 type Language struct {
   Resource *Resource
 }
@@ -21,6 +22,7 @@ func (h *Language) ServeHTTP(res http.ResponseWriter, req *http.Request) {
   }
 }
 
+// NewLanguage returns a new Language struct with an initialized Resource handler.
 func NewLanguage() *Language {
   h := &Language{
     Resource: NewResource(),

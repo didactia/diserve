@@ -4,6 +4,7 @@ import (
   "net/http"
 )
 
+// API TODO
 type API struct {
 }
 
@@ -12,6 +13,7 @@ func (h *API) ServeHTTP(res http.ResponseWriter, req *http.Request) {
   return
 }
 
+// NewAPI TODO
 func NewAPI() *API {
   h := &API{}
   return h
