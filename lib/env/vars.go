@@ -16,7 +16,7 @@ type variables struct {
   LOADTMPLONREQUEST bool
 }
 
-// Vars is a stuct that holds the current environment variables, needs to be initialised with Init(args []string)
+// Vars is a struct that holds the current environment variables, needs to be initialised with Init(args []string)
 var Vars variables
 
 // Init initializes the Vars struct with the environment variables, the first string in args defines the environment,
