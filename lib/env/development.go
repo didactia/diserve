@@ -5,7 +5,7 @@ func development() {
   Vars.DBIP = "localhost"
   Vars.DBPORT = "9080"
   Vars.STYLEPATH = "lib/frontend/style/"
-  Vars.TMPLPATH = "lib/frontend/tmpl/*.tmpl"
+  Vars.HTMLTMPLPATH = "lib/frontend/tmpl/*.tmpl"
   Vars.PRELOADSTYLES = false
   Vars.LOADTMPLONREQUEST = true
 }

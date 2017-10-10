@@ -3,8 +3,9 @@ package app
 import (
   "net/http"
   "diserve.didactia.org/lib/router/app/handler"
+  "diserve.didactia.org/lib/env"
   "diserve.didactia.org/lib/util"
-  "diserve.didactia.org/lib/frontend/templater"
+  "diserve.didactia.org/lib/templater"
 )
 
 // App is the first level struct of the router, this contains the handlers for all root http requests.
@@ -34,7 +35,7 @@ func (h *App) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 
 // NewApp returns a new App with its handlers initialized.
 func NewApp() *App {
-  t := templater.NewTemplater()
+  t := templater.NewTemplater(env.Vars.HTMLTMPLPATH)
   h := &App {
     Language: handler.NewLanguage(),
     API: handler.NewAPI(),

@@ -11,7 +11,8 @@ type variables struct {
   DBIP string
   DBPORT string
   STYLEPATH string
-  TMPLPATH string
+  HTMLTMPLPATH string
+  DBTMPLPATH string
   PRELOADSTYLES bool
   LOADTMPLONREQUEST bool
 }
