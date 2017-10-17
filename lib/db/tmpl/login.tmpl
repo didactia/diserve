@@ -1,0 +1,9 @@
+{{define "login"}}
+{
+  login(func: eq(name, "{{.Name}}")) {
+    _uid_
+    name
+    checkpwd(password, "{{.Password}}")
+  }
+}
+{{end}}
