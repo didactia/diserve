@@ -1,0 +1,16 @@
+{{define "register-form"}}
+<form action="/api/user/register" method="post">
+  <div>
+    <label for="username">{{.Strings.Username}}</label>
+    <input type="text" id="username" name="u">
+  </div>
+  <div>
+    <label for="password">{{.Strings.Password}}</label>
+    <input type="password" id="password" name="p">
+  </div>
+  <div>
+    <button type="submit">{{.Strings.Register}}</button>
+  </div>
+</form>
+{{end}}
+

@@ -2,19 +2,32 @@ html {
   font-family: sans-serif;
 }
 
-div.top-bar {
-  width: 100%;
-  height: 3em;
-  background-color: #f2f2f2;
-  display: block;
-  margin-bottom: 0;
-  border-bottom: 0;
-  border-width: 0 0 1px;
+body {
+  margin: 0;
+  box-sizing: border-box;
+  margin-top: -1em;
 }
 
-div.top-bar-inner {
-  width: 80%;
-  margin: 1em auto; 
+div.frontbox {
+  width: 30em;
+  margin: auto;
+  margin-top: 25vh;
+}
+
+form#search > input {
+  width: auto;
+  display: block;
+  margin: auto;
+  margin-bottom: 1em;
+}
+
+input[name="q"] {
+  width: 95%;
+}
+
+a {
+  color: #0366d6
+  text-decoration: none;
 }
 
 div.pull-left {
