@@ -62,8 +62,37 @@ func (h *User) ServeHTTP(res http.ResponseWriter, req *http.Request) {
         buf.WriteTo(res)
       }
     case "register":
-      // TODO
-      http.Error(res, "Not Implemented", http.StatusNotImplemented)
+      req.ParseForm()
+      user, err := h.dbc.RegisterUser(req.FormValue("u"), req.FormValue("p"))
+      resp := loginResponse{}
+      if err != nil {
+        resp.Check = false
+        resp.Err = fmt.Sprint(err)
+      } else {
+        token, exp, err := security.LoginToken(user)
+        if err != nil {
+          resp.Check = false
+          resp.Err = fmt.Sprint(err)
+        } else {
+          resp.Check = true
+          cookie := &http.Cookie{
+            Name: "jwt",
+            Value: token,
+            Expires: time.Unix(exp, 0),
+          }
+          http.SetCookie(res, cookie)
+        }
+      }
+      data, err := json.Marshal(resp)
+      if err != nil {
+        http.Error(res, fmt.Sprint(err), http.StatusInternalServerError)
+      } else {
+        res.Header().Set("Content-Type", "text/json; charset=utf-8")
+        buf := h.bufpool.Get()
+        defer h.bufpool.Put(buf)
+        buf.Write(data)
+        buf.WriteTo(res)
+      }
     default:
       http.Error(res, "Not Implemented", http.StatusNotImplemented)
     }
