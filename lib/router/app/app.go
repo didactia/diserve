@@ -6,6 +6,7 @@ import (
   "diserve.didactia.org/lib/env"
   "diserve.didactia.org/lib/util"
   "diserve.didactia.org/lib/templater"
+  "diserve.didactia.org/lib/db"
 )
 
 // App is the first level struct of the router, this contains the handlers for all root http requests.
@@ -34,11 +35,11 @@ func (h *App) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 }
 
 // NewApp returns a new App with its handlers initialized.
-func NewApp() *App {
+func NewApp(dbc *db.DatabaseClient) *App {
   t := templater.NewTemplater(env.Vars.HTMLTMPLPATH)
   h := &App {
     Language: handler.NewLanguage(),
-    API: handler.NewAPI(),
+    API: handler.NewAPI(dbc),
     Style: handler.NewStyle(),
     Frontpage: handler.NewFrontpage(t),
   }
