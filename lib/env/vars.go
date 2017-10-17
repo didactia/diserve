@@ -13,8 +13,12 @@ type variables struct {
   STYLEPATH string
   HTMLTMPLPATH string
   DBTMPLPATH string
+  TMPLBPOOLSIZE int
   PRELOADSTYLES bool
   LOADTMPLONREQUEST bool
+  USERTOKENDURATION int64
+  HMACSECRET []byte
+  APIUSERBPOOLSIZE int
 }
 
 // Vars is a struct that holds the current environment variables, needs to be initialised with Init(args []string)
