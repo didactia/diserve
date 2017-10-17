@@ -3,7 +3,7 @@ package handler
 import (
   "net/http"
 
-  "diserve.didactia.org/lib/frontend/templater"
+  "diserve.didactia.org/lib/templater"
 )
 
 // Frontpage holds a pointer to the template, to be used for rendering the frontpage template.
