@@ -1,0 +1,17 @@
+{{ define "find-concept" }}
+{{ if .Context }}
+{
+  concept(func: regexp(title, /{{.Title}}/i) @filter(has(context))) {
+    _uid_
+   context @filter(func: exact(label, /{{.Context.Label}}/i))
+  }
+}
+{{ else }}
+{
+  concept(func: regexp(title, /{{.Title}}/i)) {
+    _uid_
+  }
+}
+{{ end }}
+{{ end }}
+    

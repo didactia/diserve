@@ -1,0 +1,8 @@
+{{ define "new-concept" }}
+mutation {
+  set {
+    _:concept <title> "{{.Title}}" .{{if .Context}}
+    _:concept <context> <{{.Context.UIDString}}> .{{end}}
+  }
+}
+{{ end }}
