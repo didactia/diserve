@@ -1,0 +1,11 @@
+{{ define "get-concepts-by-title" }}
+{
+  concepts(func: regexp(title, /{{.Title}}/i)) {
+    _uid_
+    title
+    context {
+      title
+    }
+  }
+}
+{{ end }}
