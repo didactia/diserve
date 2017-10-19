@@ -16,7 +16,6 @@ import (
 // User TODO
 type User struct {
   bufpool *bpool.BufferPool
-  dbc *db.DatabaseClient
 }
 
 type loginResponse struct {
@@ -31,7 +30,7 @@ func (h *User) ServeHTTP(res http.ResponseWriter, req *http.Request) {
     switch head {
     case "login":
       req.ParseForm()
-      user, err := h.dbc.LoginUser(req.FormValue("u"), req.FormValue("p"))
+      user, err := db.LoginUser(req.FormValue("u"), req.FormValue("p"))
       resp := loginResponse{}
       if err != nil {
         resp.Check = false
@@ -63,7 +62,7 @@ func (h *User) ServeHTTP(res http.ResponseWriter, req *http.Request) {
       }
     case "register":
       req.ParseForm()
-      user, err := h.dbc.RegisterUser(req.FormValue("u"), req.FormValue("p"))
+      user, err := db.NewUser(req.FormValue("u"), req.FormValue("p"))
       resp := loginResponse{}
       if err != nil {
         resp.Check = false
@@ -102,10 +101,9 @@ func (h *User) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 }
 
 // NewUser TODO
-func NewUser(dbc *db.DatabaseClient) *User {
+func NewUser() *User {
   h := &User{
     bufpool: bpool.NewBufferPool(env.Vars.APIUSERBPOOLSIZE),
-    dbc: dbc,
   }
   return h
 }

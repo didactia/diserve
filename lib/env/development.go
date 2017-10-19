@@ -13,4 +13,5 @@ func development() {
   Vars.USERTOKENDURATION = 7 * 24 * 60 * 60
   Vars.HMACSECRET = []byte("not secret at all")
   Vars.APIUSERBPOOLSIZE = 48
+  Vars.APICONCEPTBPOOLSIZE = 48
 }

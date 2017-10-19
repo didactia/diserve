@@ -2,7 +2,6 @@ package handler
 
 import (
   "net/http"
-  "diserve.didactia.org/lib/db"
   "diserve.didactia.org/lib/util"
   "diserve.didactia.org/lib/router/app/handler/api"
 )
@@ -10,6 +9,7 @@ import (
 // API TODO
 type API struct {
   User *api.User
+  Concept *api.Concept
 }
 
 func (h *API) ServeHTTP(res http.ResponseWriter, req *http.Request) {
@@ -18,15 +18,19 @@ func (h *API) ServeHTTP(res http.ResponseWriter, req *http.Request) {
   case "user":
     req.URL.Path = tail
     h.User.ServeHTTP(res, req)
+  case "concept":
+    req.URL.Path = tail
+    h.Concept.ServeHTTP(res, req)
   default:
     http.Error(res, "Not Implemented", http.StatusNotImplemented)
   }
 }
 
 // NewAPI TODO
-func NewAPI(dbc *db.DatabaseClient) *API {
+func NewAPI() *API {
   h := &API{
-    User: api.NewUser(dbc),
+    User: api.NewUser(),
+    Concept: api.NewConcept(),
   }
   return h
 }

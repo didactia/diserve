@@ -88,7 +88,6 @@ func Query(name string, data interface{}) (*protos.Response, error) {
   req := client.Req{}
   query, err := dbc.Templater.RenderString(name, data)
   fmt.Println(query)
-  return nil, ErrResponseQuery
   if err != nil {
     return nil, err
   }
@@ -98,6 +97,22 @@ func Query(name string, data interface{}) (*protos.Response, error) {
     return nil, err
   }
   return resp, nil
+}
+
+// QueryAndUnmarshal queries with the template of name, and the data. then
+// unmarshals the result into the given result interface.
+func QueryAndUnmarshal(name string, data interface{}, result interface{}) error {
+  res, err := Query(name, data)
+  if err != nil {
+    log.Print(err)
+    return ErrResponseQuery
+  }
+  err = client.Unmarshal(res.N, result)
+  if err != nil {
+    log.Print(err)
+    return ErrResponseUnmarshalling
+  }
+  return nil
 }
 
 func uidString(i uint64) string {

@@ -10,8 +10,8 @@ import (
 
 // Run runs the didactia server on the port PORT in the environment variables
 func Run(args []string) {
-  dbc := db.NewDatabaseClient(env.Vars.DBIP, env.Vars.DBPORT)
-  defer dbc.Close()
-  app := app.NewApp(dbc)
+  db.InitializeDatabaseClient(env.Vars.DBIP, env.Vars.DBPORT)
+  defer db.Close()
+  app := app.NewApp()
   http.ListenAndServe(fmt.Sprintf(":%s", env.Vars.PORT), app)
 }

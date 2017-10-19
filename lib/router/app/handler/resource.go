@@ -9,7 +9,8 @@ import (
 type Resource struct {
 }
 
-func (h *Resource) ServeHTTP(tag language.Tag) http.Handler {
+// Handler TODO
+func (h *Resource) Handler(tag language.Tag) http.Handler {
   return http.HandlerFunc(func (res http.ResponseWriter, req *http.Request) {
     http.Error(res, "Not Implemented", http.StatusNotImplemented)
   })
