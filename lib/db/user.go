@@ -87,7 +87,7 @@ func LoginUser(name string, password string) (*User, error) {
 // NewUser will save a user with the given name and password, returns the
 // User struct, error will be nil if name is unique.
 func NewUser(name string, password string) (*User, error){
-  _, err := GetUser(name)
+  _, err := FindUser(name)
   if err == nil {
     return nil, ErrUsernameAlreadyExists
   }
@@ -98,7 +98,7 @@ func NewUser(name string, password string) (*User, error){
     Name: name,
     Password: password,
   }
-  res, err := Query("register", data)
+  res, err := Query("new-user", data)
   if err != nil {
     log.Print(err)
     return nil, ErrResponseQuery
@@ -111,14 +111,14 @@ func NewUser(name string, password string) (*User, error){
   return user, nil
 }
 
-// GetUser will given a user name return a user struct.
+// FindUser will given a user name return a user struct.
 // error is nil if user exists.
-func GetUser(name string) (*User, error) {
+func FindUser(name string) (*User, error) {
   data := userQuery{
     Name: name,
   }
   var res userResponse
-  err := QueryAndUnmarshal("get-user", data, &res)
+  err := QueryAndUnmarshal("find-user", data, &res)
   if err != nil {
     return nil, err
   }
