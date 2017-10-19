@@ -7,6 +7,7 @@ import (
   "os"
   "context"
   "errors"
+  "strconv"
 
   "github.com/dgraph-io/dgraph/client"
   "github.com/dgraph-io/dgraph/protos"
@@ -31,6 +32,8 @@ type DatabaseClient struct {
   Templater *templater.Templater
   Close func()
 }
+
+var dbc *DatabaseClient
 
 // NewDatabaseClient returns a dgraph client and the function to close it.
 func NewDatabaseClient(ip string, port string) (*DatabaseClient) {
@@ -58,8 +61,19 @@ func NewDatabaseClient(ip string, port string) (*DatabaseClient) {
   return dbclient
 }
 
+// InitializeDatabaseClient intializes the database client, this must be
+// called before running other database functions.
+func InitializeDatabaseClient(ip string, port string) {
+  dbc = NewDatabaseClient(ip, port)
+}
+
+// Close the database client gracefully.
+func Close() {
+  dbc.Close()
+}
+
 // AddSchema adds the given schema through the databaseclient
-func (dbc *DatabaseClient) AddSchema(schema string) {
+func AddSchema(schema string) {
   req := client.Req{}
   req.SetSchema(schema)
   resp, err := dbc.Dgraph.Run(context.Background(), &req)
@@ -70,9 +84,11 @@ func (dbc *DatabaseClient) AddSchema(schema string) {
 }
 
 // Query queries with the query string through the database client
-func (dbc *DatabaseClient) Query(name string, data interface{}) (*protos.Response, error) {
+func Query(name string, data interface{}) (*protos.Response, error) {
   req := client.Req{}
   query, err := dbc.Templater.RenderString(name, data)
+  fmt.Println(query)
+  return nil, ErrResponseQuery
   if err != nil {
     return nil, err
   }
@@ -82,4 +98,8 @@ func (dbc *DatabaseClient) Query(name string, data interface{}) (*protos.Respons
     return nil, err
   }
   return resp, nil
+}
+
+func uidString(i uint64) string {
+  return "0x" + strconv.FormatUint(i, 16)
 }
