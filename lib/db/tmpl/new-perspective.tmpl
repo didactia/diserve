@@ -1,0 +1,11 @@
+{{ define "new-perspective" }}
+mutation {
+  set {
+    <{{.ConceptUID}}> <perspective> _:perspective .
+    _:perspective <statement> _:{{range .IDAndTexts}}{{if .ID}}{{.ID}} .
+    _:{{.ID}} <text> "{{.Text}}" .
+    _:{{.ID}} <next> _:{{else}}end .
+    _:end <text> "{{.Text}}" .{{end}}{{end}}
+  }
+}
+{{ end }}  
