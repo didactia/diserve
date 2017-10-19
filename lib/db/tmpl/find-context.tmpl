@@ -1,0 +1,7 @@
+{{ define "find-context" }}
+{
+  context(func: eq(label, "{{.Label}}")){
+    _uid_
+  }
+}
+{{end}}
