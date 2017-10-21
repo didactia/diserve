@@ -3,12 +3,17 @@ package security
 import (
   "github.com/dgrijalva/jwt-go"
   "time"
-  "errors"
   "log"
+  "fmt"
+  "errors"
 
+  "diserve.didactia.org/lib/util"
   "diserve.didactia.org/lib/env"
   "diserve.didactia.org/lib/db"
 )
+
+// ErrMissingUIDString occurs when given a struct without an UIDString.
+var ErrMissingUIDString = errors.New("missing uid string")
 
 // ErrUnexpectedSigningMethod is given if there is a signing method mismatch
 // in the token header.
@@ -42,9 +47,10 @@ func LoginToken(user *db.User) (string, int64, error) {
   return tokenString, expiration, nil
 }
 
-// VerifyToken will given a JWT token, and a loginType as a string, returns
+
+// VerifyLoginToken will given a JWT token, and a loginType as a string, returns
 // true if the logintype matches and the token has not expired, false otherwise.
-func VerifyToken(tokenString string, user *db.User) bool {
+func VerifyLoginToken(tokenString string, user *db.User) bool {
   token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
     if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
       return nil, ErrUnexpectedSigningMethod
@@ -57,4 +63,52 @@ func VerifyToken(tokenString string, user *db.User) bool {
   }
   claims, ok := token.Claims.(jwt.MapClaims);
   return ok && token.Valid && claims["sub"] == user.UIDString
+}
+
+type structClaims struct {
+  UIDString string
+  StructType string
+  jwt.StandardClaims
+}
+
+// StructUIDToken will given a struct with an UIDString, return a JWT certifying that the
+// UID corresponds to that struct type.
+func StructUIDToken(data interface{}) (string, error) {
+  UIDString, err := util.GetStringField(data, "UIDString")
+  if err != nil {
+    return "", err
+  }
+  if UIDString == "" {
+    return "", ErrMissingUIDString
+  }
+  claims := structClaims{
+    UIDString: UIDString,
+    StructType: util.TypeString(data),
+  }
+  fmt.Println(claims.UIDString)
+  fmt.Println(claims.StructType)
+  token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+  tokenString, err := token.SignedString(env.Vars.HMACSECRET)
+  if err != nil {
+    log.Print(err)
+    return "", ErrClaimsSigning
+  }
+  return tokenString, nil
+}
+
+// VerifyStructUIDToken will given a JWT token, and a struct name, and an
+// UIDString, verify that the JWT token corresponds to those.
+func VerifyStructUIDToken(tokenString string, typeString string, UIDString string) bool {
+  token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+    if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+      return nil, ErrUnexpectedSigningMethod
+    }
+    return env.Vars.HMACSECRET, nil
+  })
+  if err != nil {
+    log.Print(err)
+    return false
+  }
+  claims, ok := token.Claims.(jwt.MapClaims);
+  return ok && claims["StructType"] == typeString && claims["UIDString"] == UIDString
 }
