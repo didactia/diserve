@@ -11,7 +11,9 @@ func Init(args []string) {
              password: password .
              title: string @index(exact, trigram) .
              label: string @index(exact, trigram) .
+             dtitle: string .
              prerequisite: uid .
+             discussion: uid .
              concept: uid .
              context: uid @reverse .
              perspective: uid .
@@ -19,6 +21,7 @@ func Init(args []string) {
              understander: uid @count .
              text: string .
              reasoning: uid .
+             author: uid @reverse .
              comment: uid .
              old: uid .
              next: uid .

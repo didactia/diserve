@@ -1,0 +1,10 @@
+{{ define "new-discussion" }}
+mutation {
+  set {
+    <{{.SubjectUIDString}}> <discussion> _:discussion .
+    _:discussion <author> <{{.UserUIDString}}> .
+    _:discussion <dtitle> "{{.DTitle}}" .
+    _:discussion <text> "{{.Text}}" . 
+  }
+}
+{{ end }}

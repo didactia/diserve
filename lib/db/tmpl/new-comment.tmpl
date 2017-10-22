@@ -1,0 +1,9 @@
+{{ define "new-comment" }}
+mutation {
+  set {
+    <{{.SubjectUIDString}}> <comment> _:comment .
+    _:comment <author> <{{.UserUIDString}}> .
+    _:comment <text> "{{.Text}}" .
+  }
+}
+{{ end }}
