@@ -20,6 +20,8 @@ type variables struct {
   HMACSECRET []byte
   APIUSERBPOOLSIZE int
   APICONCEPTBPOOLSIZE int
+  BPOOLSIZE int
+  LOCALSTRINGSPATH string
 }
 
 // Vars is a struct that holds the current environment variables, needs to be initialised with Init(args []string)

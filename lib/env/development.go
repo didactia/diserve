@@ -14,4 +14,6 @@ func development() {
   Vars.HMACSECRET = []byte("not secret at all")
   Vars.APIUSERBPOOLSIZE = 48
   Vars.APICONCEPTBPOOLSIZE = 48
+  Vars.BPOOLSIZE = 48
+  Vars.LOCALSTRINGSPATH = "lib/frontend/local/json"
 }

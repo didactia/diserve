@@ -5,6 +5,7 @@ import (
   "log"
   "net/http"
   "text/template"
+  "bytes"
 
   "github.com/oxtoacart/bpool"
 
@@ -57,6 +58,23 @@ func (t *Templater) RenderString(name string, data interface{}) (string, error) 
   str := buf.String()
   t.bufpool.Put(buf)
   return str, nil
+}
+
+// RenderBuffer renders the template of the given name, with the given data, to the given byte buffer
+func (t *Templater) RenderBuffer(buf *bytes.Buffer, name string, data interface{}) (error) {
+  var err error
+  if env.Vars.LOADTMPLONREQUEST {
+    t.templates, err = template.ParseGlob(t.path)
+    if err != nil {
+      return err
+    }
+  }
+  tmpl := t.templates.Lookup(name)
+  if tmpl == nil {
+    return fmt.Errorf("the template %s does not exist", name)
+  }
+  tmpl.Execute(buf, data)
+  return nil
 }
 
 // NewTemplater returns a Templater with parsed templates in the directory TMPLPATH.
