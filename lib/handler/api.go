@@ -3,7 +3,7 @@ package handler
 import (
   "net/http"
   "diserve.didactia.org/lib/util"
-  "diserve.didactia.org/lib/router/app/handler/api"
+  "diserve.didactia.org/lib/handler/api"
 )
 
 // API TODO
