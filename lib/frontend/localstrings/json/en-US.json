@@ -1,0 +1,46 @@
+{
+  "Comment": {
+    "SelfName": "Comment",
+    "ButtonNew": "New comment"
+  },
+  "Concept": {
+    "SelfName": "Concept",
+    "ButtonNew": "New concept",
+    "LabelTitle": "Title"
+  },
+  "Context": {
+    "SelfName": "Context",
+    "ButtonNew": "New context"
+  },
+  "Discussion": {
+    "SelfName": "Discussion",
+    "ButtonNew": "Start discussion",
+    "LabelTitle": "Title",
+    "LabelText": "Text"
+  },
+  "Perspective": {
+    "SelfName": "Perspective",
+    "ButtonNew": "Add new perspective",
+    "LabelText": "Text"
+  },
+  "Prerequisite": {
+    "SelfName": "Prerequisite",
+    "ButtonNew": "Add new prerequisite"
+  },
+  "Prompts": {
+    "WrongUsernameOrPassword": "wrong username or password",
+    "NoResultsFound": "no results found",
+    "NotWhatYouWereLookingFor": "Did you not find what you were looking for?"
+  },
+  "Reasoning": {
+    "SelfName": "Reasoning",
+    "LabelText": "Text"
+  },
+  "User": {
+    "SelfName": "User",
+    "LabelUsername": "username",
+    "LabelPassword": "password",
+    "ButtonRegister": "register",
+    "ButtonLogin": "login"
+  }
+}
