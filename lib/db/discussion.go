@@ -13,8 +13,10 @@ type Discussion struct {
 }
 
 type newDiscussionQuery struct {
+  Text string
+  DTitle string
+  UserUIDString string
   SubjectUIDString string
-  Title string
 }
 
 // NewDiscussion creates a new discussion for the subject corresponding to the
@@ -32,7 +34,7 @@ func NewDiscussion(user *User, dTitle string, text string, subjectUIDString stri
     return nil, ErrResponseQuery
   }
   discussion := &Discussion{
-    Title: title,
+    DTitle: dTitle,
     UID: result.AssignedUids["discussion"],
     UIDString: uidString(result.AssignedUids["discussion"]),
   }
